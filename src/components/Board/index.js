@@ -1,11 +1,33 @@
+import { MENU_ITEMS } from "@/constants";
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { activeMenuItemClicked  , actionMenuItemClicked} from "@/slice/menuSlice";
 
 const Board = () => {
-  const activeMenuItem = useSelector((state) => state.menu.activeMenuItem);
+  const dispatch = useDispatch();
+  const {activeMenuItem , actionMenuItem}= useSelector((state) => state.menu);
   const { color, size } = useSelector((state) => state.toolbox[activeMenuItem]);
   const canvasRef = useRef(null);
   const shouldDraw = useRef(false);
+
+  useEffect(() =>{                 // this useEffect is used for creating the behaviour of save of what you paint on canvas 
+    if(!canvasRef.current) return
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+   
+
+    if(actionMenuItem === MENU_ITEMS.SAVE){
+      
+      const URL = canvas.toDataURL();
+      const anchor = document.createElement('a');
+      anchor.href = URL;
+      anchor.download = "sketch.png";
+      anchor.click();
+    }
+
+    dispatch(actionMenuItemClicked(null))
+  }, [actionMenuItem , dispatch])
+
 
   useEffect(() => {
     if (!canvasRef.current) return;

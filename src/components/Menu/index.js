@@ -18,6 +18,10 @@ const Menu = () => {
     dispatch(activeMenuItemClicked(menuItems));
   };
 
+  const handleActionMenuItemClicked = (menuItems) =>{
+    dispatch(actionMenuItemClicked(menuItems))
+  }
+
   const activeMenuItem = useSelector((state) => state.menu.activeMenuItem); // this selector is for taki agar hum pencil pe hai to wo pencil ka background colour highligthed rahe jo ke highlighted colour index.module.css class me &.active karke ek diya waha se aaraha hai
   return (
     <div className={styles.menuContainer}>
@@ -39,19 +43,19 @@ const Menu = () => {
       </div>
       <div
         className={styles.iconWrapper}
-        onClick={() => handleMenuItemClicked(MENU_ITEMS.UNDO)}
+        onClick={() => handleActionMenuItemClicked(MENU_ITEMS.UNDO)}
       >
         <FontAwesomeIcon icon={faRotateLeft} className={styles.icon} />
       </div>
       <div
         className={styles.iconWrapper}
-        onClick={() => handleMenuItemClicked(MENU_ITEMS.REDO)}
+        onClick={() => handleActionMenuItemClicked(MENU_ITEMS.REDO)}
       >
         <FontAwesomeIcon icon={faRotateRight} className={styles.icon} />
       </div>
       <div
         className={styles.iconWrapper}
-        onClick={() => handleMenuItemClicked(MENU_ITEMS.SAVE)}
+        onClick={() => handleActionMenuItemClicked(MENU_ITEMS.SAVE)}
       >
         <FontAwesomeIcon icon={faFileArrowDown} className={styles.icon} />
       </div>
